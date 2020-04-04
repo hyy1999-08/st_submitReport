@@ -1,0 +1,54 @@
+.shenhecontainer1{
+
+    width:80%;
+    margin: 0 auto;
+    height: 125px;
+}
+.shenhecontainer2{
+    width: 80%;
+       margin-top: 4px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    height: 350px;
+}
+.shenhebuttonp{
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+.fileloader{
+
+    width:100%;
+    height:200px;
+    margin: 0 auto;
+}
+.fileloader h4{
+    text-align: center;
+}
+.filebox{
+    width: 100%;
+    margin: 0 auto;
+
+}
+
+.file{
+    margin-left:45% ;
+    margin-bottom: 5px;
+    padding-bottom: 2px;
+}
+.uploadbutton{
+    margin-left: 43%;
+
+
+}
+.buttonp{
+            text-align: center;
+            position:relative;
+            margin-bottom: 5px;
+            margin-top:5px ;
+        }
+.button{
+    border-radius:20%;
+
+}

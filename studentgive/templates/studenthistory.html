@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生周报提交系统</title>
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/reg1.css">
+    <link rel="stylesheet" href="../static/css/home.css">
+    <link rel="stylesheet" href="../static/css/LineIcons.css">
+    <link rel="stylesheet" href="../static/css/teal.css">
+
+    <script src="../static/js/jquery-3.4.1.js"></script>
+</head>
+<style>
+
+
+</style>
+<body>
+<div class="wrap-box"></div>
+        <div id="header" >
+            <div class="header_title " ><a href="javascript:void(0);" onclick="getthome()">学生周报系统 </a></div>
+    <div class="header_nav">
+       <ul id="header_menu_list "   >
+ <li class="header_menu_list header_menu_list_checked header_menu_list_fi"><a href="javascript:void(0);" onclick="getthome()" >首页</a></li>
+           <li class="header_menu_list"><span></span><a href="javascript:void(0);" onclick="gettijiao()" >提交审核</a></li>
+           <li class="header_menu_list"><span></span><a  href="javascript:void(0);" onclick="gethistory()">历史提交</a></li>
+           <div class="clear"></div>
+       </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+
+<div class="header lead text-center ">
+       <h1 >学生上交情况</h1>
+</div>
+    <div class="buttonp">
+        <button type="submit" onclick="gethome()">返回</button>
+        <button type="submit" onclick="getlogin()">退出登录</button>
+    </div>
+
+    <div class="mtable">
+        <table border="8">
+            <tr>
+                <td>学号及姓名</td>
+                <td>审核情况</td>
+                <td>第几周作业</td>
+            </tr>
+
+          {% for row in data  %}
+                     <tr>
+                         <td class="cost{{ row.rowid}}">{{ row.id }}--{{ row.realname}}</td>
+
+                         <td class="audit{{ row.rowid}}">{{row.myaudit}}</td>
+                         <td class="fileorder{{row.rowid }}">{{ row.myorder}}</td>
+                         </td>
+                    </tr>
+        {% endfor %}
+        </table>
+
+    </div>
+
+</body>
+<script>
+
+{#     window.onload(function requestData(){#}
+{#         $.ajax({#}
+{#             url:"/gettablem",#}
+{#             type: "post",#}
+{#            dataType: "json",#}
+{#            success: function(data){#}
+{#               /*这个方法里是ajax发送请求成功之后执行的代码*/#}
+{#                   showData(data);//我们仅做数据展示#}
+{#               },#}
+{#                 error: function(msg){#}
+{#                     alert("ajax连接异常："+msg);#}
+{#                 }#}
+{#             });#}
+{#         });#}
+{#function showData(data) {#}
+{#         var str = "";//定义用于拼接的字符串#}
+{#          for (var i = 0; i < data.length; i++) {#}
+{#              //拼接表格的行和列#}
+{#              str = "<tr><td>" + data[i].name + "</td><td>" + data[i].password + "</td></tr>";#}
+{#              //追加到table中#}
+{#              $("#tab").append(str);         }#}
+{#     }#}
+
+     /**
+     * @return {string}
+     */
+// param 为 参数的名称
+
+        function getParameter(param)
+        {
+         var query = window.location.search;
+         var iLen = param.length;
+         var iStart = query.indexOf(param);
+         if (iStart == -1)
+          return "";
+         iStart += iLen + 1;
+         var iEnd = query.indexOf("&", iStart);
+         if (iEnd == -1)
+          return query.substring(iStart);
+
+         return query.substring(iStart, iEnd);
+        }
+
+
+        function gethome() {
+            var span=getParameter("user")
+            window.location.href="/gohome?user="+span;
+        }
+
+        function getallstudent() {
+             var span=getParameter("user")
+             window.location.href="/gotmanage?user="+span;
+        }
+        function gethistory() {
+             var span=getParameter("user")
+             window.location.href="/gosthistory?user="+span;
+        }
+        function gettijiao() {
+            var span=getParameter("user")
+            //window.location.href="/gothomelook?user"+span;
+             window.location.href="gotijiao?user="+span;
+        }
+
+        function getlogin(){
+            window.location.href="/"
+        }
+
+
+</script>
+</html>

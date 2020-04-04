@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生提交周报系统登录</title>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/reg1.css">
+     <script src="../static/js/jquery-3.4.1.js"></script>
+    <style type="text/css">
+
+    </style>
+
+
+    
+</head>
+<body>
+<div class="wrap-box"></div>
+<div class="header lead text-center ">
+    <span>学生周报系统</span>
+</div>
+<div class="container ">
+    <div class="my_formb">
+      <div class="my_formu">
+
+            <label for="user" class="mlabel">用户名</label>
+            <input  class="minput" type="text" id="user" placeholder="Your id" >
+            <br><p id="sid"></p><br>
+        </div>
+
+        <div class="my_formu">
+
+            <label for="password" class="mlabel">密&emsp;码</label>
+            <input class="minput" type="password" id="password" placeholder="Your password">
+            <br>
+            <br>
+        </div>
+        <div class="mradiog" >
+            <table onclick="checkNameexist()">
+                <tr>
+                    <td>
+            <input class="mradio" type="radio"  name="radioc" value="teacher" >老师<br></td>
+                    <td>
+            <input class="mradio"  type="radio" name="radioc" value="student" >学生<br></td>
+                </tr>
+                </table>
+            <br><p id="identify"></p><br>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary" onclick="checkok()">登录</button>
+            <button type="button" class="btn" onclick="window.location.href='/register'">注册</button>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+<script>
+
+
+
+    function checkNameexist() {
+        var username = document.getElementById("user").value;
+        var input1 = $("input[name='radioc']:checked").val();
+        var input2 = document.getElementById("password").value;
+        var span = document.getElementById("identify");
+        if (input1 == "teacher") {
+            $.getJSON("logintcheck?name=" + username + "&password=" + input2, function (res) {
+                if (res.result == "ok") {
+                    span.innerHTML = "<font color='blue'>ok</font>";
+                } else {
+                    span.innerHTML = "<font color='red'>账户出现异常或没有注册</font>";
+
+                }
+
+            })
+        } else if (input1 == "student") {
+            $.getJSON("logincheck?name=" + username + "&password=" + input2, function (res) {
+                if (res.result == "ok") {
+                    span.innerHTML = "<font color='blue'>ok</font>";
+                } else {
+                    span.innerHTML = "<font color='red'>账户出现异常或没有注册</font>";
+
+                }
+
+            })
+        }
+
+
+    }
+    function checkok(){
+        var username=document.getElementById("user").value;
+        var span=document.getElementById("identify").innerText;
+        var type=$("input[name='radioc']:checked").val();
+
+        if(type=="teacher") {
+            if (span == "ok") {
+                window.location.href = "/gothome?user="+username;
+
+            } else {
+                alert("登录失败")
+
+            }
+        }else{
+             if (span == "ok") {
+                window.location.href = "/gohome?user="+username;
+
+            } else {
+                alert("登录失败")
+
+            }
+
+        }
+
+    }
+
+</script>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生提交周报系统登录</title>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/reg1.css">
+
+    <script src="../static/js/jquery-3.4.1.js"></script>
+    <style type="text/css">
+
+
+    </style>
+
+</head>
+<body>
+
+<div class="wrap-box"></div>
+<div class="demo "></div>
+<div class="header lead text-center ">
+    <span>学生周报系统</span>
+</div>
+<div class="container ">
+    <div class="my_formb">
+        <div class="my_formu">
+
+            <label for="user" class="mlabel">用户名</label>
+            <input  class="minput" type="text" id="user" placeholder="学号或教工号" >
+            <br><p id="sid"></p><br>
+        </div>
+
+        <div class="my_formu">
+
+            <label for="password" class="mlabel">密&emsp;码</label>
+            <input class="minput" type="password" id="password" placeholder="密码">
+            <br>
+            <br>
+        </div>
+         <div class="my_formru">
+
+            <label for="rpassword" class="mrlabel">确认密码</label>
+            <input class="mrinput" type="password" id="rpassword" placeholder="confirm password" required oninput="checkpwd(this.value)">
+             <br>
+           <p id="pifs"></p>
+             <br>
+        </div>
+        <div class="mradiog" >
+            <table onclick="checkName()">
+                <tr>
+                    <td>
+            <input class="mradio" type="radio"  name="radioc" value="teacher" >老师<br></td>
+                    <td>
+            <input class="mradio"  type="radio" name="radioc" value="student" >学生<br></td>
+                </tr>
+                </table>
+            <br><p id="identify"></p><br>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary" required onclick="register()">注册</button>
+            <button type="button" class="btn" onclick="window.location.href='/'">返回</button>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+    <script type="text/javascript">
+
+        //在jS中我们注意函数的使用fucntion，注意
+        </script>
+    <script>
+
+        function checkpwd(pwd2) {
+
+                var input1=document.getElementById("password");
+
+               // var span=document.getElementById("pifs");
+               var span=$("#pifs")[0];
+
+           
+                var password=input1.value;
+
+                var timeoutID;
+                clearTimeout(timeoutID);
+                timeoutID=setTimeout(function () {
+                      if (password == pwd2){
+                    span.innerHTML="<font color='blue'>密码一致</font>";
+                }else{
+                    span.innerHTML="<font color=red>两次密码不一致</font>";
+                }
+
+                },500);
+
+            }
+            function checkName() {
+                var input = document.getElementById("user");
+                var username = input.value;
+                var row=$("input[name='radioc']:checked")[0].value;
+               
+                var span = document.getElementById("sid");
+                if (row == "student" ) {
+                    $.getJSON("checkName?name=" + username, function (res) {
+                        if (res.result == "ok") {
+                            span.innerHTML = "<font color='blue'>可以注册</font>";
+                        }
+                        else {
+                            span.innerHTML = "<font color='red'>用户已存在</font>";
+
+                        }
+                    })
+                }else if (row =="teacher"){
+                    $.getJSON("checktName?name=" + username, function (res) {
+                        if (res.result == "ok") {
+                            span.innerHTML = "<font color='blue'>可以注册</font>";
+                        }
+                        else {
+                            span.innerHTML = "<font color='red'>用户已存在</font>";
+
+                        }
+                    })
+
+
+                }
+            }
+
+            function register() {
+                var input1 = document.getElementById('user');
+                var input2 = document.getElementById('rpassword');
+                var username = input1.value;
+                var password = input2.value;
+                var row = $("input[name='radioc']:checked")[0].value;
+                if (row == "student") {
+
+                $.getJSON("/doregister?name=" + username + "&password=" + password, function (res) {
+                    if (res.result = "ok") {
+                        alert("注册成功");
+                        window.location.href="/";
+                    } else {
+                        alert("注册失败")
+
+                    }
+                })
+                }else if (row =="teacher"){
+                    $.getJSON("/dotregister?name=" + username + "&password=" + password, function (res) {
+                    if (res.result = "ok") {
+                        alert("注册成功");
+                        window.location.href="/";
+                    } else {
+                        alert("注册失败")
+
+                    }
+                })
+
+
+                }
+            }
+
+
+    </script>
+</html>

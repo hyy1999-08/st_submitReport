@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生周报提交系统</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/LineIcons.css">
+    <link rel="stylesheet" href="../static/css/teal.css">
+    <link rel="stylesheet" href="../static/css/shenhe.css">
+
+    <script src="../static/js/jquery-3.4.1.js"></script>
+    <style>
+        .shadow{
+             transition-duration: 0.5s; //停留时间显示
+        }
+        .shadow:hover{
+            -webkit-box-shadow: #ccc 0px 10px 10px;
+            -moz-box-shadow: #ccc 0px 10px 10px;
+            box-shadow: #ccc 0px 10px 10px;  }
+    </style>
+</head>
+<body>
+
+<div class="wrap-box"></div>
+
+<div class="header lead text-center ">
+       <h1>学生周报审核</h1>
+</div>
+    <div class="buttonp">
+        <button class="button" type="button" onclick="getthomelook()">返回</button>
+        <span>||</span>
+        <button type="button" onclick="getlogin()">退出登录</button>
+    </div>
+<div class="shenhecontainer1">
+    <label for="shenhetitle">第几周报<br>填写数字<br>例:1,2,..</label>
+    <input type="text" id="shenhetitle" style="width:90% ;height:100% ">
+</div>
+<div class="shenhecontainer2">
+     <label for="shenhecontent">修改信息</label>
+    <input type="text" id="shenhecontent" style="width:90% ;height:100% ">
+
+</div>
+<div class="shenhebuttonp">
+o
+
+</div>
+<div class="fileloader">
+					<h4 class="filetitle">word文件下载</h4>
+                        <p id="getifadmit"></p>
+                       <div class="text-center">
+                           <input type="button" onclick="download()" value="下载">
+                       </div>
+
+
+				</div>
+
+
+
+
+</body>
+<script>
+/**
+  function getifadmit(){
+        var getuser=getParameter("user");
+        var stname=getParameter("stname").value;
+        var span=document.getElementById("getifadmit");
+        $.getJSON("checkadmit?name="+getuser+"&stname="+stname,function (res) {
+            if (res.result=="ok"){
+                var content=res.content;
+                span.innerHTML=content;
+
+            } else{
+                span.innerHTML="";
+
+            }
+
+        })
+
+
+    };
+
+    window.onload=function () {
+            getifadmit();
+    };
+
+*/
+
+
+    /**
+     * @return {string}
+     */
+// param 为 参数的名称
+        function getParameter(param)
+        {
+         var query = window.location.search;
+         var iLen = param.length;
+         var iStart = query.indexOf(param);
+         if (iStart == -1)
+          return "";
+         iStart += iLen + 1;
+         var iEnd = query.indexOf("&", iStart);
+         if (iEnd == -1)
+          return query.substring(iStart);
+
+         return query.substring(iStart, iEnd);
+        }
+
+           function getthome() {
+            var span=getParameter("user");
+            window.location.href="/gothome?user="+span;
+        }
+        function getallstudent() {
+             var span=getParameter("user");
+             window.location.href="/gotmanage?user="+span;
+        }
+
+         function getthomelook() {
+           var span=getParameter("user");
+            var stname=getParameter("stname");
+            var myfileorder=document.getElementById("shenhetitle").value;
+            //window.location.href="/gothomelook?user"+span;
+             window.location.href="gothomelook?user="+span+"&myfileorder="+myfileorder;
+        }
+
+        function getlogin(){
+            window.location.href="/"
+        }
+        function download(){
+            var span=getParameter("user");
+            var stname=getParameter("stname");
+            var myfileorder=document.getElementById("shenhetitle").value;
+            window.location.href="download?user="+span+"&stname="+stname+"&myfileorder="+myfileorder;
+
+        }
+
+
+
+
+</script>
+</html>

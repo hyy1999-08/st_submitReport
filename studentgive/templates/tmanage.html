@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生周报提交系统</title>
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/reg1.css">
+    <link rel="stylesheet" href="../static/css/home.css">
+    <link rel="stylesheet" href="../static/css/LineIcons.css">
+    <link rel="stylesheet" href="../static/css/teal.css">
+
+    <script src="../static/js/jquery-3.4.1.js"></script>
+</head>
+<style>
+
+
+</style>
+<body>
+<div class="wrap-box"></div>
+        <div id="header" >
+            <div class="header_title " ><a href="javascript:void(0);" onclick="getthome()">学生周报系统 </a></div>
+    <div class="header_nav">
+       <ul id="header_menu_list "   >
+           <li class="header_menu_list header_menu_list_checked header_menu_list_fi"><a href="javascript:void(0);" onclick="getthome()" >首页</a></li>
+           <li class="header_menu_list"><span></span><a href="javascript:void(0);" onclick="getthomelook()" >周报审核</a></li>
+           <li class="header_menu_list"><span></span><a  href="javascript:void(0);" onclick="gettmanage()">学生管理</a></li>
+           <div class="clear"></div>
+       </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+
+<div class="header lead text-center ">
+       <h1 >学生上交情况</h1>
+</div>
+    <div class="buttonp">
+        <button type="button" onclick="getback()">返回</button>
+        <button type="button" onclick="getlogin()">退出登录</button>
+    </div>
+
+    <div class="mtable">
+        <table border="8">
+            <tr>
+                <td>研究生学号姓名</td>
+                <td>修改结果</td>
+                <td></td>>
+            </tr>
+
+                        {% for row in data  %}
+                     <tr>
+                         <td class="cost{{ row.rowid}}">{{ row.id }}--{{ row.realname}}</td>
+
+                         <td class="monit{{ row.rowid}}"></td>
+
+                         <td>
+                             <div id="options{{ row.rowid}}">
+                                  <button id='look{{ row.rowid }}' href="javascript:void(0);" >修改</button>
+                             </div>
+
+                    </tr>
+                    {% endfor %}
+
+        </table>
+
+    </div>
+
+</body>
+<script>
+    //dom加载完毕
+
+
+
+
+        function getParameter(param)
+        {
+         var query = window.location.search;
+         var iLen = param.length;
+         var iStart = query.indexOf(param);
+         if (iStart == -1)
+          return "";
+         iStart += iLen + 1;
+         var iEnd = query.indexOf("&", iStart);
+         if (iEnd == -1)
+          return query.substring(iStart);
+
+         return query.substring(iStart, iEnd);
+        }
+        $(document).ready(function () {
+
+        //该方式使可以on(click,'选择元素'，function)
+        $("div[id^='options']").on('click','button',function () {
+            var span=getParameter('user');
+            var the_id=this.id.match('\\d+');
+            var the_type=this.id.match('[a-zA-Z]+');
+            if (the_type == 'look'){
+                $('#options'+the_id).html('<button id="cancel'+the_id+'">delete</button>\n<button id="apply'+the_id+'">more</button>');
+
+
+
+            }
+            else if(the_type=='cancel'){
+                var current_name=$('.cost'+the_id).text();
+                var current_monit=$('.monit'+the_id);
+                $.ajax({
+                    url:'/delete',
+                    type:'get',
+                    data:{user:span ,stname:current_name },
+                    success:function (response) {
+                        $('.monit'+the_id).html("已删除")
+
+                    },
+                    error:function (x) {
+                        //错误处理
+
+                    }
+                })
+            }
+        })
+    });
+
+        function getthome() {
+            var span=getParameter("user")
+            window.location.href="/gothome?user="+span;
+        }
+         function getsh() {
+            var span=getParameter("user");
+             var span2=document.getElementById("studentnumber").value;
+            alert(span2);
+            window.location.href="/goshenhe?user="+span+"&stname="+span2;
+        }
+         function gethistory() {
+            var span=getParameter("user")
+            window.location.href="/gothome?user="+span;
+        }
+        function getmanage() {
+             var span=getParameter("user")
+             window.location.href="/gotmanage?user="+span;
+        }
+         function getthomelook() {
+            var span=getParameter("user")
+            window.location.href="/gothomelook?user="+span;
+        }
+        function getlogin(){
+            window.location.href="/"
+        }
+        function getback(){
+             var span=getParameter("user");
+            window.location.href="/gothome?user="+span;
+        }
+
+
+</script>
+</html>

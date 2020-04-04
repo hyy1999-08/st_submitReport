@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生周报提交系统</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/LineIcons.css">
+    <link rel="stylesheet" href="../static/css/teal.css">
+    <link rel="stylesheet" href="../static/css/shenhe.css">
+
+    <script src="../static/js/jquery-3.4.1.js"></script>
+    <style>
+        .shadow{
+             transition-duration: 0.5s; //停留时间显示
+        }
+        .shadow:hover{
+            -webkit-box-shadow: #ccc 0px 10px 10px;
+            -moz-box-shadow: #ccc 0px 10px 10px;
+            box-shadow: #ccc 0px 10px 10px;  }
+    </style>
+</head>
+<body>
+
+<div class="wrap-box"></div>
+
+<div class="header lead text-center ">
+       <h1>学生周报审核</h1>
+</div>
+    <div class="buttonp">
+        <button class="button" type="button" onclick="gethome()">返回</button>
+        <span>||</span>
+        <button type="button" onclick="getlogin()">退出登录</button>
+    </div>
+<div class="shenhecontainer1">
+    <label for="shenhetitle">提交哪次<br>数字即可<br>例:1,2,.</label>
+    <input type="text" id="shenhetitle" style="width:90% ;height:100% ">
+</div>
+<div class="shenhecontainer2">
+     <label for="shenhecontent">备注信息</label>
+    <input type="text" id="shenhecontent" style="width:90% ;height:100% ">
+
+</div>
+<div class="shenhebuttonp">
+o
+
+</div>
+<div class="fileloader">
+					<h4 class="filetitle">word文件上传</h4>
+
+                <form id="form1" method="post" action="/api/upload?" enctype="multipart/form-data">
+
+                       <div class="text-center">
+                         <input id="File1" type="file" name="myfile"/>
+                           <input type="submit" onclick="uploadfile()" >
+                       </div>
+                </form>
+
+
+                    <div class="text-center test" style="font-size: 30px ;color:#7fc9fb">
+                    {% for foo in list  %}
+                     <tr>
+                         <td > {{ foo}}</td>
+                    </tr>
+                    {% endfor %}
+                    </div>
+				</div>
+
+
+
+
+</body>
+<script>
+
+
+
+
+    window.onload=function () {
+
+    };
+
+    /**
+     * @return {string}
+     */
+// param 为 参数的名称
+        function getParameter(param)
+        {
+         var query = window.location.search;
+         var iLen = param.length;
+         var iStart = query.indexOf(param);
+         if (iStart == -1)
+          return "";
+         iStart += iLen + 1;
+         var iEnd = query.indexOf("&", iStart);
+         if (iEnd == -1)
+          return query.substring(iStart);
+
+         return query.substring(iStart, iEnd);
+        }
+
+           function gethome() {
+            var span=getParameter("user");
+            window.location.href="/gohome?user="+span;
+        }
+        function getallstudent() {
+             var span=getParameter("user");
+             window.location.href="/gotmanage?user="+span;
+        }
+
+         function getthomelook() {
+            var span=getParameter("user");
+            //window.location.href="/gothomelook?user"+span;
+             window.location.href="gothomelook?user="+span;
+        }
+
+        function getlogin(){
+            window.location.href="/"
+        }
+        function uploadfile(){
+            var f=document.getElementById("form1");
+            var myorder=document.getElementById('shenhetitle').value;
+
+            var span=getParameter("user");
+            f.action=f.action+"user="+span+"&myorder="+myorder;
+
+        }
+
+
+
+
+</script>
+</html>

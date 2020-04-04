@@ -1,0 +1,84 @@
+  html,body{height: 100%;
+
+  }
+
+body {
+    font-family: "Microsoft Yahei", sans-serif;
+    font-weight: lighter;
+}
+.wrap-box{
+	background:#FFFFCC;
+	padding: 2px;
+}
+    .header{
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        font-size: 30px;
+        padding-bottom: 10px;
+        padding-top: 10%;
+        background-color: #ffffff;
+
+    }
+    .header span{
+            vertical-align:middle;
+            font-weight: bold;
+        }
+    .container{
+        height: 100%;
+        width:100%;
+
+
+    }
+   .my_formb{
+       width: auto;
+       height:auto;
+        text-align: center;
+
+   }
+   .my_formu{
+       width: auto;
+       height:auto;
+       text-align: center;
+        position: relative;
+
+
+   }
+
+  .mlabel{
+      display: inline;
+      text-align: center;
+   }
+
+  .minput{
+      height: 30px;
+      margin-left: 10px;
+
+
+  }
+  .mrlabel{
+        display: inline;
+        position: relative;
+     right: 5px;
+  }
+  .mrinput{
+      margin-left: 0px;
+
+  }
+  .mradiog{
+        width: auto;
+       height:auto;
+       text-align: center;
+
+
+  }
+  .mradiog table{
+      margin: 0 auto;
+
+  }
+
+  .form-actions{
+      background-color: #ffffff;
+
+
+  }
