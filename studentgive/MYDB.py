@@ -2,7 +2,7 @@ import pymssql
 
 server = "LAPTOP-KS13NLRE"
 user = "hyy"
-password = "200152523"
+password = "1234567"
 database = "Studentgive"
 charset = "utf8"
 
